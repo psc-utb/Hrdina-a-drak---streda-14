@@ -13,6 +13,7 @@ namespace Hrdina_a_drak___streda_14
         public double ZdraviMax { get; set; }
         public double PoskozeniMax { get; set; }
         public double ZbrojMax { get; set; }
+        public bool Utekl { get; set; }
 
         public Hrdina(string jmeno, double zdravi, double zdraviMax, double poskozeniMax, double zbrojMax)
         {
@@ -21,19 +22,31 @@ namespace Hrdina_a_drak___streda_14
             ZdraviMax = zdraviMax;
             PoskozeniMax = poskozeniMax;
             ZbrojMax = zbrojMax;
+            Utekl = false;
         }
 
+        /// <summary>
+        /// utok hrdiny na draka
+        /// </summary>
+        /// <param name="oponent">oponent hrdiny - drak</param>
+        /// <returns>hodnota utoku</returns>
+        /// <exception cref="Exception">postava již nemůže bojovat</exception>
         public double Utok(Drak oponent)
         {
-            double hodnotaUtoku = 0;
+            if (MuzeBojovat())
+            {
+                double hodnotaUtoku = 0;
 
-            Random rnd = new Random();
-            hodnotaUtoku = rnd.NextDouble() * PoskozeniMax;
-            hodnotaUtoku -= oponent.Obrana();
-            this.NastavNuluKdyzJeZaporne(ref hodnotaUtoku);
-            oponent.Zdravi -= hodnotaUtoku;
+                Random rnd = new Random();
+                hodnotaUtoku = rnd.NextDouble() * PoskozeniMax;
+                hodnotaUtoku -= oponent.Obrana();
+                this.NastavNuluKdyzJeZaporne(ref hodnotaUtoku);
+                oponent.Zdravi -= hodnotaUtoku;
 
-            return hodnotaUtoku;
+                return hodnotaUtoku;
+            }
+            else
+                throw new Exception("Hrdina útočí a přitom už nemůže bojovat!");
         }
 
         public double Obrana()
@@ -49,6 +62,11 @@ namespace Hrdina_a_drak___streda_14
         {
             if (hodnota < 0)
                 hodnota = 0;
+        }
+
+        public bool MuzeBojovat()
+        {
+            return JeZivy() && Utekl == false;
         }
 
         public bool JeZivy()
