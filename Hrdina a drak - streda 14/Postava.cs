@@ -32,14 +32,19 @@ namespace Hrdina_a_drak___streda_14
         /// <param name="oponent">oponent postavy</param>
         /// <returns>hodnota utoku</returns>
         /// <exception cref="Exception">postava již nemůže bojovat</exception>
-        public double Utok(Postava oponent)
+        public virtual double Utok(Postava oponent)
+        {
+            return Utok(oponent, PoskozeniMax);
+        }
+
+        protected double Utok(Postava oponent, double poskozeniMax)
         {
             if (MuzeBojovat())
             {
                 double hodnotaUtoku = 0;
 
                 Random rnd = new Random();
-                hodnotaUtoku = rnd.NextDouble() * PoskozeniMax;
+                hodnotaUtoku = rnd.NextDouble() * poskozeniMax;
                 hodnotaUtoku -= oponent.Obrana();
                 this.NastavNuluKdyzJeZaporne(ref hodnotaUtoku);
                 oponent.Zdravi -= hodnotaUtoku;
@@ -50,7 +55,7 @@ namespace Hrdina_a_drak___streda_14
                 throw new Exception($"{Jmeno} útočí a přitom už nemůže bojovat!");
         }
 
-        public double Obrana()
+        public virtual double Obrana()
         {
             double hodnotaObrany = 0;
 
