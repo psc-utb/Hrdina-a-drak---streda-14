@@ -31,5 +31,10 @@ namespace Hrdina_a_drak___streda_14
                 return base.Utok(oponent);
             }
         }
+
+        public override bool KontrolaOponenta(Postava oponent)
+        {
+            return true;
+        }
     }
 }

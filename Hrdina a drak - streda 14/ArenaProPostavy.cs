@@ -44,7 +44,7 @@ namespace Hrdina_a_drak___streda_14
 
         public bool LzeBojovat()
         {
-            if (PocetBojujicichPostav() > 1)
+            if (PocetBojujicichPostav() > 0)
             {
                 return true;
             }
@@ -59,7 +59,7 @@ namespace Hrdina_a_drak___streda_14
             int pocet = 0;
             foreach (var postava in Postavy)
             {
-                if (postava.MuzeBojovat())
+                if (postava.MuzeBojovat() && postava.MuzeVybratOponenta(Postavy))
                     ++pocet;
             }
             return pocet;
