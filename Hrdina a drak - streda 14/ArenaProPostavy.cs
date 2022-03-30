@@ -16,6 +16,7 @@ namespace Hrdina_a_drak___streda_14
 
         public void Boj()
         {
+            Bedna bedna = new Bedna(50, 2);
             while (LzeBojovat())
             {
                 for (int i = 0; i < Postavy.Length; ++i)
@@ -33,6 +34,12 @@ namespace Hrdina_a_drak___streda_14
                             {
                                 utok = oponent.Utok(utocnik);
                                 Console.WriteLine($"{oponent.Jmeno} provedl protiútok hodnotou {utok}. {utocnik.Jmeno} má {utocnik.Zdravi} zdraví.");
+                            }
+
+                            if (utocnik.MuzeBojovat() && bedna.NeniRozbita())
+                            {
+                                utok = utocnik.Utok(bedna);
+                                Console.WriteLine($"{utocnik.Jmeno} rozbíjí bednu hodnotou {utok}. Bedna má {bedna.Zdravi} zdraví.");
                             }
                         }
                     }
