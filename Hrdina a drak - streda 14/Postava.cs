@@ -15,6 +15,10 @@ namespace Hrdina_a_drak___streda_14
         public double ZbrojMax { get; set; }
         public bool Utekl { get; set; }
 
+        private Postava oponent;
+
+        public event Action<Postava, Postava> VybranNovyOponent;
+
         public Postava(string jmeno, double zdravi, double zdraviMax, double poskozeniMax, double zbrojMax)
         {
             Jmeno = jmeno;
@@ -64,12 +68,18 @@ namespace Hrdina_a_drak___streda_14
             return hodnotaObrany;
         }
 
-        public Postava VyberOponenta(Postava[] postavy)
+        public Postava VyberOponenta(List<Postava> postavy)
         {
             foreach(var postava in postavy)
             {
                 if (postava.MuzeBojovat() && postava != this && KontrolaOponenta(postava))
                 {
+                    if (postava != oponent)
+                    {
+                        oponent = postava;
+                        VybranNovyOponent?.Invoke(this, oponent);
+                    }
+
                     return postava;
                 }
             }
@@ -78,7 +88,7 @@ namespace Hrdina_a_drak___streda_14
 
         public abstract bool KontrolaOponenta(Postava oponent);
 
-        public bool MuzeVybratOponenta(Postava[] postavy)
+        public bool MuzeVybratOponenta(List<Postava> postavy)
         {
             Postava oponent = VyberOponenta(postavy);
             if (oponent != null)

@@ -8,10 +8,14 @@ namespace Hrdina_a_drak___streda_14
 {
     public class ArenaProPostavy
     {
-        public Postava[] Postavy { get; set; }
-        public ArenaProPostavy(Postava[] postavy)
+        public List<Postava> Postavy { get; set; }
+        public ArenaProPostavy(List<Postava> postavy)
         {
             Postavy = postavy;
+            foreach(var postava in Postavy)
+            {
+                postava.VybranNovyOponent += VypisInfoPoVyberuNovehoOponenta;
+            }
         }
 
         public void Boj()
@@ -19,7 +23,7 @@ namespace Hrdina_a_drak___streda_14
             Bedna bedna = new Bedna(50, 2);
             while (LzeBojovat())
             {
-                for (int i = 0; i < Postavy.Length; ++i)
+                for (int i = 0; i < Postavy.Count; ++i)
                 {
                     Postava utocnik = Postavy[i];
                     if (utocnik.MuzeBojovat())
@@ -70,6 +74,11 @@ namespace Hrdina_a_drak___streda_14
                     ++pocet;
             }
             return pocet;
+        }
+
+        void VypisInfoPoVyberuNovehoOponenta(Postava utocnik, Postava oponent)
+        {
+            Console.WriteLine($"Postava: {utocnik.Jmeno} si vybrala nového oponenta: {oponent.Jmeno}");
         }
     }
 }
