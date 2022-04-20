@@ -80,5 +80,18 @@ namespace Hrdina_a_drak___streda_14
         {
             Console.WriteLine($"Postava: {utocnik.Jmeno} si vybrala nového oponenta: {oponent.Jmeno}");
         }
+
+        public void StatistikyPostav()
+        {
+            double prumernaSilaPostav = Postavy.Average(postava => postava.SilaPostavy());
+            Console.WriteLine($"Průměrná síla všech postav je: {prumernaSilaPostav}");
+
+            List<Postava> draci = Postavy.FindAll(postava => postava is Drak);
+            //následující řádek dělá totéž jako ten další s lambda výrazem - v prvním případě se předá jen reference na již existující metodu a ve druhém metodu vytváříme pomocí lambda výrazu
+            //draci.ForEach(Console.WriteLine);
+            draci.ForEach(postava => Console.WriteLine(postava.ToString()));
+
+            Console.WriteLine(String.Empty);
+        }
     }
 }

@@ -25,8 +25,8 @@ namespace Hrdina_a_drak___streda_14
             postavy.Reverse();
 
             postavy.Add(new Hrdina("hrdina 2", 50, 5, 5));
-            postavy.Remove(drak2);
-            postavy.RemoveAt(1);
+            //postavy.Remove(drak2);
+            //postavy.RemoveAt(1);
 
             foreach (var postava in postavy)
             {
@@ -35,6 +35,7 @@ namespace Hrdina_a_drak___streda_14
             Console.WriteLine(String.Empty);
             
             ArenaProPostavy arena = new ArenaProPostavy(postavy);
+            arena.StatistikyPostav();
             arena.Boj();
         }
     }
