@@ -53,6 +53,11 @@ namespace Hrdina_a_drak___streda_14
             }
         }
 
+        public Task BojAsync()
+        {
+            return Task.Run(Boj);
+        }
+
         public bool LzeBojovat()
         {
             if (PocetBojujicichPostav() > 0)
